@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Employee List</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+  />
+  <style>
+    body {
+      background: linear-gradient(to right, #f0f4f8, #e0f7fa);
+      font-family: "Segoe UI", sans-serif;
+    }
+
+    h2 {
+      font-weight: 700;
+      color: #007bff;
+      text-align: center;
+    }
+
+    .btn-primary {
+      background-color: #007bff;
+      border: none;
+    }
+
+    .btn-primary:hover {
+      background-color: #0056b3;
+    }
+
+    .btn-warning {
+      background-color: #ff9800;
+      border: none;
+    }
+
+    .btn-warning:hover {
+      background-color: #fb8c00;
+    }
+
+    .btn-danger {
+      background-color: #e53935;
+      border: none;
+    }
+
+    .btn-danger:hover {
+      background-color: #c62828;
+    }
+
+    table {
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .table-hover tbody tr:hover {
+      background-color: #f1f1f1;
+    }
+
+    .table th, .table td {
+      vertical-align: middle;
+      text-align: center;
+    }
+
+    .no-data {
+      font-style: italic;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+  <%- include('header') %>
+
+  <div class="container py-5">
+    <h2 class="mb-4">Employee List</h2>
+    <div class="text-end mb-3">
+      <a href="/" class="btn btn-primary">+ Add New Employee</a>
+    </div>
+
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover bg-white shadow-sm rounded">
+        <thead class="table-dark">
+          <tr>
+            <th>#</th>
+            <th>Emp ID</th>
+            <th>Name</th>
+            <th>Department</th>
+            <th>Salary (₹)</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% if (employees.length === 0) { %>
+            <tr>
+              <td colspan="6" class="text-center no-data">No employees added yet.</td>
+            </tr>
+          <% } else { %>
+            <% employees.forEach((emp, index) => { %>
+              <tr>
+                <td><%= index + 1 %></td>
+                <td><%= emp.empId %></td>
+                <td><%= emp.name %></td>
+                <td><%= emp.department %></td>
+                <td>₹ <%= emp.salary %></td>
+                <td>
+                  <a href="/emp/edit/<%= emp.id %>" class="btn btn-sm btn-warning me-1">Edit</a>
+                  <a href="/emp/delete/<%= emp.id %>" class="btn btn-sm btn-danger"
+                    onclick="return confirm('Are you sure you want to delete this employee?');">
+                    Delete
+                  </a>
+                </td>
+              </tr>
+            <% }) %>
+          <% } %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</body>
+</html>
